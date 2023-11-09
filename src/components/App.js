@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import './App.css';
 
 // Action handler
 import { handleInitialData } from '../actions/shared';
