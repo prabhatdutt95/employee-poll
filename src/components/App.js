@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import './App.css';
 
 // Action handler
-import { handleInitialData } from './actions/shared';
+import { handleInitialData } from '../actions/shared';
 
 const App = (props) =>  {
   const handleInitData = () => {
