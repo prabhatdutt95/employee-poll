@@ -1,41 +1,36 @@
-import { useEffect, Fragment } from "react";
-import { connect } from "react-redux";
-import { LoadingBar } from "react-redux-loading-bar";
-import { Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { connect, useSelector } from "react-redux";
 
 // Action handler
 import { handleInitialData } from "../actions/shared";
 
 // Components
-import Nav from "./Nav";
 import UserPage from "./UserPage";
 import Home from "./Home";
 
+const authedUser = (state) => state.authedUser;
+
 const App = (props) => {
-  // console.log("App", props);
+  const loggedUser = useSelector(authedUser);
+  console.log("Loggeduser", loggedUser);
+
   const handleInitData = () => {
     props.dispatch(handleInitialData());
   };
+
+  const templateHandler = () => {
+    if (loggedUser) {
+      return <Home />;
+    } else {
+      return <UserPage user={props} />;
+    }
+  };
+
   useEffect(() => {
     handleInitData();
   }, []);
 
-  return (
-    <Fragment>
-      {/* <LoadingBar /> */}
-      <div className="container">
-        {/* <Nav /> */}
-        {/* {props.loading === true ? null : ( */}
-        <Routes>
-          <Route path="/" exact element={<UserPage user={props} />} />
-          <Route path="/home" exact element={<Home />} />
-          {/* <Route path="/tweet/:id" exact element={<TweetPage />} />
-              <Route path="/new" exact element={<NewTweet />} /> */}
-        </Routes>
-        {/* )} */}
-      </div>
-    </Fragment>
-  );
+  return templateHandler();
 };
 
 const mapStateToProps = ({ authedUser }) => ({

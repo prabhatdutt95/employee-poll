@@ -1,5 +1,11 @@
+import NavHeader from "./NavHeader";
+
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <>
+      <NavHeader />
+    </>
+  );
 };
 
 export default Home;

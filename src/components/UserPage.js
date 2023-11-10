@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { connect, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 
 import { setAuthedUser } from "../actions/authedUser";
@@ -11,10 +10,10 @@ import CustomSelect from "../custom-component/custom-select/CustomSelect";
 const userList = (state) => state.users;
 
 const UserPage = (props) => {
-  const navigate = useNavigate();
+  const { dispatch } = props;
+
   const [loggedUser, setLoggedUser] = useState(null);
 
-  const { dispatch } = props;
   const users = useSelector(userList);
   const userOptions = Object.keys(users).map((userId) => ({
     value: userId,
@@ -24,12 +23,11 @@ const UserPage = (props) => {
   }));
 
   const handleSelect = (user) => {
-    dispatch(setAuthedUser(user));
-    setLoggedUser(user.name);
+    setLoggedUser(user);
   };
 
   const navigateToHome = () => {
-    navigate("/home");
+    dispatch(setAuthedUser(loggedUser));
   };
 
   return (
