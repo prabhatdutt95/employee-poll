@@ -1,9 +1,13 @@
 import Poll from "./Poll";
 
-const PollList = ({ questionIdsList, questionList }) => {
-  console.log("QuestionIds List", questionIdsList);
+const PollList = ({ questionIdsList, questionList, currentTab }) => {
+  // console.log("QuestionIds List", questionIdsList);
   return questionIdsList.map((questionId) => (
-    <Poll question={questionList[questionId]} />
+    <Poll
+      key={questionId}
+      question={questionList[questionId]}
+      currentTab={currentTab}
+    />
   ));
 };
 

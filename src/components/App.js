@@ -12,7 +12,6 @@ const authedUser = (state) => state.authedUser;
 
 const App = (props) => {
   const loggedUser = useSelector(authedUser);
-  console.log("Loggeduser", loggedUser);
 
   const handleInitData = () => {
     props.dispatch(handleInitialData());

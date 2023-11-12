@@ -1,12 +1,11 @@
 import { useSelector } from "react-redux";
 import { formatDate } from "../utils/helpers";
+import Unanswered from "./Unanswered";
 
-const Poll = ({ question }) => {
+const Poll = ({ question, currentTab }) => {
   const users = (state) => state.users;
   const userList = useSelector(users);
-
   const author = userList[question.author];
-  console.log("Recieved Question", question);
 
   return (
     <div className="d-flex justify-content-center">
@@ -27,33 +26,10 @@ const Poll = ({ question }) => {
           <h5>Would You Rather ?</h5>
           <p className="mb-0">{question.optionOne.text}</p>
           <p>or ...</p>
-          {/* <div className="form-check">
-            <input
-              className="form-check-input"
-              type="radio"
-              name={question.id}
-              id={question.id + "_1"}
-              disabled
-            />
-            <label className="form-check-label" for={question.id + "_1"}>
-              {question.optionOne.text}
-            </label>
-          </div>
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="radio"
-              name={question.id}
-              id={question.id + "_2"}
-              disabled
-            />
-            <label className="form-check-label" for={question.id + "_2"}>
-              {question.optionTwo.text}
-            </label>
-          </div> */}
-          <button type="button" className="btn btn-outline-success w-50">
-            Answer
-          </button>
+
+          {currentTab === 1 && (
+            <Unanswered author={author} question={question} />
+          )}
         </div>
       </div>
     </div>

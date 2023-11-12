@@ -9,7 +9,7 @@ const QuestionTab = () => {
   const questionList = (state) => state.questions;
   const questions = useSelector(questionList);
 
-  const [currentTab, setCurrentTab] = useState(2);
+  const [currentTab, setCurrentTab] = useState(1);
   const handleTab = (selectedTab) => {
     // console.log("Current tab", e, currentTab);
     setCurrentTab(selectedTab);
@@ -60,6 +60,7 @@ const QuestionTab = () => {
                       : answeredQuestionIds
                   }
                   questionList={questions}
+                  currentTab={currentTab}
                 />
               </div>
             </div>
