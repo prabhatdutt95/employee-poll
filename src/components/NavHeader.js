@@ -11,9 +11,9 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 
 const NavHeader = ({ loggedUser }) => {
   const navObjList = [
-    { name: "Home", url: "/" },
-    { name: "Leaderboard", url: "/leaderboard" },
-    { name: "New", url: "/new" },
+    { name: "Home", url: "/", id: "home" },
+    { name: "Leaderboard", url: "/leaderboard", id: "leaderboard" },
+    { name: "New", url: "/new", id: "new" },
   ];
   const dropdownVariant = "Secondary";
 
@@ -37,6 +37,7 @@ const NavHeader = ({ loggedUser }) => {
           <Nav className="me-auto" variant="underline" defaultActiveKey="/">
             {navObjList.map((navObj) => (
               <Nav.Link
+                key={navObj.id}
                 eventKey={navObj.url}
                 onClick={() => navigation(navObj.url)}
               >

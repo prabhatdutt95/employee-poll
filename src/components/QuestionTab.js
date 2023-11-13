@@ -9,22 +9,24 @@ const QuestionTab = () => {
   const questionList = (state) => state.questions;
   const questions = useSelector(questionList);
 
+  let sortedList = Object.entries(questions).sort(
+    (a, b) => b[1].timestamp - a[1].timestamp
+  );
+  sortedList = Object.fromEntries(sortedList);
+
   const [currentTab, setCurrentTab] = useState(1);
   const handleTab = (selectedTab) => {
-    // console.log("Current tab", e, currentTab);
     setCurrentTab(selectedTab);
   };
 
   let unansweredQuestionIds = [];
   let answeredQuestionIds = [];
-  Object.keys(questions).forEach((questionId) => {
-    questions[questionId].optionOne.votes.includes(loggedUser.value) ||
-    questions[questionId].optionTwo.votes.includes(loggedUser.value)
+  Object.keys(sortedList).forEach((questionId) => {
+    sortedList[questionId].optionOne.votes.includes(loggedUser.value) ||
+    sortedList[questionId].optionTwo.votes.includes(loggedUser.value)
       ? answeredQuestionIds.push(questionId)
       : unansweredQuestionIds.push(questionId);
   });
-  // console.log("Unanswered", unansweredQuestionIds);
-  // console.log("answeredQuestionIds", answeredQuestionIds);
 
   return (
     <div className="container pt-5">

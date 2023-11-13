@@ -11,7 +11,7 @@ const Answered = ({ author, question, loggedUser }) => {
     const totalVotes =
       question.optionOne.votes.length + question.optionTwo.votes.length;
     const optionLength = question[option].votes.length;
-    const votes = (optionLength / totalVotes) * 100;
+    const votes = ((optionLength / totalVotes) * 100).toFixed(1);
     const userSelection = question[option].votes.includes(loggedUser.value);
     return (
       <div className="card mt-2 w-75">

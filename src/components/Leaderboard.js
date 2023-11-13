@@ -14,10 +14,9 @@ const Leaderboard = () => {
       };
     })
     .sort((a, b) => b.total - a.total);
-  console.log(sortedResults);
 
   return sortedResults.map((result) => (
-    <div className="d-flex justify-content-center">
+    <div key={result.id} className="d-flex justify-content-center">
       <div className="card mt-2 w-50">
         <div className="card-header d-flex align-item-center">
           <img
@@ -39,7 +38,7 @@ const Leaderboard = () => {
             </div>
             <div className="col-6">
               <h3>
-                Score: <span class="badge bg-success">{result.total}</span>
+                Score: <span className="badge bg-success">{result.total}</span>
               </h3>
             </div>
           </div>

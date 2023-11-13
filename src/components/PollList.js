@@ -1,7 +1,18 @@
 import Poll from "./Poll";
 
 const PollList = ({ questionIdsList, questionList, currentTab }) => {
-  // console.log("QuestionIds List", questionIdsList);
+  if (questionIdsList.length === 0) {
+    if (currentTab === 1) {
+      return (
+        <p className="mt-3 text-center">
+          All the questions have been answered!
+        </p>
+      );
+    }
+    if (currentTab === 2) {
+      return <p className="mt-3 text-center">No questions answered yet!</p>;
+    }
+  }
   return questionIdsList.map((questionId) => (
     <Poll
       key={questionId}
