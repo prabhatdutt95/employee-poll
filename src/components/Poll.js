@@ -1,10 +1,15 @@
 import { useSelector } from "react-redux";
 import { formatDate } from "../utils/helpers";
 import Unanswered from "./Unanswered";
+import Answered from "./Answered";
 
 const Poll = ({ question, currentTab }) => {
   const users = (state) => state.users;
   const userList = useSelector(users);
+
+  const user = (state) => state.authedUser;
+  const loggedUser = useSelector(user);
+
   const author = userList[question.author];
 
   return (
@@ -28,7 +33,19 @@ const Poll = ({ question, currentTab }) => {
           <p>or ...</p>
 
           {currentTab === 1 && (
-            <Unanswered author={author} question={question} />
+            <Unanswered
+              author={author}
+              question={question}
+              loggedUser={loggedUser}
+            />
+          )}
+
+          {currentTab === 2 && (
+            <Answered
+              author={author}
+              question={question}
+              loggedUser={loggedUser}
+            />
           )}
         </div>
       </div>

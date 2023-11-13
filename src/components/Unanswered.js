@@ -1,12 +1,11 @@
-import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import Modal from "react-bootstrap/Modal";
 import { saveAnswerToQuestion } from "../actions/questions";
 
-const Unanswered = ({ author, question }) => {
+const Unanswered = ({ author, question, loggedUser }) => {
   const dispatch = useDispatch();
-  const user = (state) => state.authedUser;
-  const loggedUser = useSelector(user);
+
   const [option, setOption] = useState(null);
   const [show, setShow] = useState(false);
 
