@@ -1,4 +1,6 @@
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import { removeUser } from "../actions/authedUser";
 
 import Container from "react-bootstrap/Container";
@@ -8,25 +10,39 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 
 const NavHeader = ({ loggedUser }) => {
+  const navObjList = [
+    { name: "Home", url: "/" },
+    { name: "Leaderboard", url: "/leaderboard" },
+    { name: "New", url: "/new" },
+  ];
   const dropdownVariant = "Secondary";
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleLogout = () => {
-    console.log("Logout button clicked");
-    dispatch(removeUser(loggedUser));
+  const navigation = (url) => {
+    if (url === "/logout") {
+      dispatch(removeUser(loggedUser));
+      navigate("/");
+    } else {
+      navigate(url);
+    }
   };
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand>WYR</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto" variant="underline" defaultActiveKey="/">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link eventKey="/leaderboard">Leaderboard</Nav.Link>
-            <Nav.Link eventKey="/new">New</Nav.Link>
+            {navObjList.map((navObj) => (
+              <Nav.Link
+                eventKey={navObj.url}
+                onClick={() => navigation(navObj.url)}
+              >
+                {navObj.name}
+              </Nav.Link>
+            ))}
           </Nav>
           <Navbar.Text>
             <div className="d-flex justify-content-start align-items-center">
@@ -45,7 +61,7 @@ const NavHeader = ({ loggedUser }) => {
                 <Dropdown.Item eventKey="1">
                   <div
                     className="d-flex justify-content-start align-items-center"
-                    onClick={handleLogout}
+                    onClick={() => navigation("/logout")}
                   >
                     <img
                       className="me-2"
