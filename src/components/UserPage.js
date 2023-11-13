@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { connect, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Card from "react-bootstrap/Card";
 
 import { setAuthedUser } from "../actions/authedUser";
@@ -9,18 +9,13 @@ import CustomSelect from "../custom-component/custom-select/CustomSelect";
 
 const userList = (state) => state.users;
 
-const UserPage = (props) => {
-  const { dispatch } = props;
+const UserPage = () => {
+  const dispatch = useDispatch();
 
   const [loggedUser, setLoggedUser] = useState(null);
 
   const users = useSelector(userList);
-  const userOptions = Object.keys(users).map((userId) => ({
-    value: userId,
-    label: users[userId].name,
-    avatarURL: users[userId].avatarURL,
-    name: users[userId].name,
-  }));
+  const userOptions = Object.keys(users).map((userId) => users[userId]);
 
   const handleSelect = (user) => {
     setLoggedUser(user);
@@ -63,4 +58,4 @@ const UserPage = (props) => {
   );
 };
 
-export default connect()(UserPage);
+export default UserPage;

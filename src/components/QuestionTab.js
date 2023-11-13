@@ -1,20 +1,31 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import PollList from "./PollList";
+import { setSelectedTab } from "../actions/shared";
 
 const QuestionTab = () => {
+  const dispatch = useDispatch();
+  const [currentTab, setCurrentTab] = useState(1);
+
   const user = (state) => state.authedUser;
   const loggedUser = useSelector(user);
 
   const questionList = (state) => state.questions;
   const questions = useSelector(questionList);
 
+  const setInitialTab = useCallback(() => {
+    dispatch(setSelectedTab(currentTab));
+  }, [dispatch, currentTab]);
+
+  useEffect(() => {
+    setInitialTab();
+  }, [setInitialTab]);
+
   let sortedList = Object.entries(questions).sort(
     (a, b) => b[1].timestamp - a[1].timestamp
   );
   sortedList = Object.fromEntries(sortedList);
 
-  const [currentTab, setCurrentTab] = useState(1);
   const handleTab = (selectedTab) => {
     setCurrentTab(selectedTab);
   };
@@ -22,8 +33,8 @@ const QuestionTab = () => {
   let unansweredQuestionIds = [];
   let answeredQuestionIds = [];
   Object.keys(sortedList).forEach((questionId) => {
-    sortedList[questionId].optionOne.votes.includes(loggedUser.value) ||
-    sortedList[questionId].optionTwo.votes.includes(loggedUser.value)
+    sortedList[questionId].optionOne.votes.includes(loggedUser.id) ||
+    sortedList[questionId].optionTwo.votes.includes(loggedUser.id)
       ? answeredQuestionIds.push(questionId)
       : unansweredQuestionIds.push(questionId);
   });

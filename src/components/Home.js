@@ -5,7 +5,7 @@ import QuestionTab from "./QuestionTab";
 import { Routes, Route } from "react-router-dom";
 import Leaderboard from "./Leaderboard";
 import NewPoll from "./NewPoll";
-import Answered from "./Answered";
+import CustomModal from "../custom-component/custom-modal/CustomModal";
 
 const Home = () => {
   const loggedUser = useSelector((state) => state.authedUser);
@@ -15,7 +15,7 @@ const Home = () => {
 
       <Routes>
         <Route path="/" exact element={<QuestionTab />} />
-        {/* <Route path="/question/:id" exact element={<Answered />} /> */}
+        <Route path="/question/:id" exact element={<CustomModal />} />
         <Route path="/leaderboard" exact element={<Leaderboard />} />
         <Route path="/new" exact element={<NewPoll />} />
       </Routes>

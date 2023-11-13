@@ -1,18 +1,16 @@
-import { useState } from "react";
-import Modal from "react-bootstrap/Modal";
+import { formatDate } from "../utils/helpers";
+import { useNavigate } from "react-router-dom";
 
 const Answered = ({ author, question, loggedUser }) => {
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const navigate = useNavigate();
 
   //   Votes calculation
   const htmlTemplate = (option) => {
     const totalVotes =
       question.optionOne.votes.length + question.optionTwo.votes.length;
     const optionLength = question[option].votes.length;
-    const votes = ((optionLength / totalVotes) * 100).toFixed(1);
-    const userSelection = question[option].votes.includes(loggedUser.value);
+    const votes = Math.round((optionLength / totalVotes) * 100);
+    const userSelection = question[option].votes.includes(loggedUser.id);
     return (
       <div className="card mt-2 w-75">
         {userSelection && (
@@ -49,43 +47,41 @@ const Answered = ({ author, question, loggedUser }) => {
     );
   };
 
-  return (
-    <>
-      <button
-        type="button"
-        className="btn btn-outline-primary w-50"
-        onClick={handleShow}
-      >
-        Results
-      </button>
+  const navigateToHome = () => {
+    navigate("/");
+  };
 
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>
+  return (
+    <div className="d-flex justify-content-center">
+      <div className="card mt-2 w-50">
+        <div className="card-header d-flex align-item-center">
+          <img
+            className="me-2"
+            src={author.avatarURL}
+            style={{ width: "5rem" }}
+            alt={author.id}
+          />
+          <div className="d-flex flex-column justify-content-center">
             <h5>{author.name} asks:</h5>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+            <span className="text-muted">{formatDate(question.timestamp)}</span>
+          </div>
+        </div>
+        <div className="card-body">
           <h5>Would You Rather ?</h5>
           {htmlTemplate("optionOne")}
           {htmlTemplate("optionTwo")}
-        </Modal.Body>
-        <Modal.Footer>
+        </div>
+        <div className="card-footer">
           <button
             type="button"
-            className="btn btn-secondary"
-            onClick={handleClose}
+            className="btn btn-secondary me-2"
+            onClick={() => navigateToHome()}
           >
             Back
           </button>
-        </Modal.Footer>
-      </Modal>
-    </>
+        </div>
+      </div>
+    </div>
   );
 };
 

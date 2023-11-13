@@ -16,3 +16,11 @@ export function handleInitialData() {
     });
   };
 }
+
+export const SELECT_TAB = "SELECT_TAB";
+export const setSelectedTab = (selectedTab) => {
+  return {
+    type: SELECT_TAB,
+    payload: selectedTab,
+  };
+};

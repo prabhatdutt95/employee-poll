@@ -27,7 +27,7 @@ const SingleValue = ({ children, ...props }) => (
         className="me-3"
         src={props.data.avatarURL}
         style={{ width: 36 }}
-        alt={props.data.label}
+        alt={props.data.name}
       />
       {children}
     </div>
@@ -46,8 +46,8 @@ const CustomSelect = ({ options, onSelect }) => {
     <Select
       value={selectedOption}
       options={options}
-      getOptionLabel={(option) => option.label} // defines how to display the option content
-      getOptionValue={(option) => option.value} // defines the value of the option
+      getOptionLabel={(option) => option.name} // defines how to display the option content
+      getOptionValue={(option) => option.id} // defines the value of the option
       placeholder="Please select a user"
       components={{ Option: IconOption, SingleValue }}
       onChange={handleSelect}

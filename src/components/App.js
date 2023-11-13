@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { connect, useSelector } from "react-redux";
+import { useEffect, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 // Action handler
 import { handleInitialData } from "../actions/shared";
@@ -8,14 +8,15 @@ import { handleInitialData } from "../actions/shared";
 import UserPage from "./UserPage";
 import Home from "./Home";
 
-const authedUser = (state) => state.authedUser;
-
 const App = (props) => {
+  const dispatch = useDispatch();
+
+  const authedUser = (state) => state.authedUser;
   const loggedUser = useSelector(authedUser);
 
-  const handleInitData = () => {
-    props.dispatch(handleInitialData());
-  };
+  const handleInitData = useCallback(() => {
+    dispatch(handleInitialData());
+  }, [dispatch]);
 
   const templateHandler = () => {
     if (loggedUser) {
@@ -27,13 +28,9 @@ const App = (props) => {
 
   useEffect(() => {
     handleInitData();
-  }, []);
+  }, [handleInitData]);
 
   return templateHandler();
 };
 
-const mapStateToProps = ({ authedUser }) => ({
-  loading: authedUser === null,
-});
-
-export default connect(mapStateToProps)(App);
+export default App;

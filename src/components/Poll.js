@@ -1,14 +1,16 @@
 import { useSelector } from "react-redux";
 import { formatDate } from "../utils/helpers";
-import Unanswered from "./Unanswered";
-import Answered from "./Answered";
+import { useNavigate } from "react-router-dom";
 
 const Poll = ({ question, currentTab }) => {
   const users = (state) => state.users;
   const userList = useSelector(users);
 
-  const user = (state) => state.authedUser;
-  const loggedUser = useSelector(user);
+  const navigate = useNavigate();
+
+  const handleNavigation = () => {
+    navigate(`/question/${question.id}`);
+  };
 
   const author = userList[question.author];
 
@@ -33,19 +35,23 @@ const Poll = ({ question, currentTab }) => {
           <p>or ...</p>
 
           {currentTab === 1 && (
-            <Unanswered
-              author={author}
-              question={question}
-              loggedUser={loggedUser}
-            />
+            <button
+              type="button"
+              className="btn btn-outline-success w-50"
+              onClick={() => handleNavigation()}
+            >
+              Answer
+            </button>
           )}
 
           {currentTab === 2 && (
-            <Answered
-              author={author}
-              question={question}
-              loggedUser={loggedUser}
-            />
+            <button
+              type="button"
+              className="btn btn-outline-primary w-50"
+              onClick={() => handleNavigation()}
+            >
+              Results
+            </button>
           )}
         </div>
       </div>
