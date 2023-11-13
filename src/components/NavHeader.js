@@ -9,12 +9,17 @@ import Navbar from "react-bootstrap/Navbar";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 
+import { useLocation } from "react-router-dom";
+
 const NavHeader = ({ loggedUser }) => {
   const navObjList = [
     { name: "Home", url: "/", id: "home" },
     { name: "Leaderboard", url: "/leaderboard", id: "leaderboard" },
     { name: "New", url: "/new", id: "new" },
   ];
+
+  const location = useLocation();
+
   const dropdownVariant = "Secondary";
 
   const dispatch = useDispatch();
@@ -38,8 +43,8 @@ const NavHeader = ({ loggedUser }) => {
             {navObjList.map((navObj) => (
               <Nav.Link
                 key={navObj.id}
-                eventKey={navObj.url}
                 onClick={() => navigation(navObj.url)}
+                active={location.pathname === navObj.url}
               >
                 {navObj.name}
               </Nav.Link>

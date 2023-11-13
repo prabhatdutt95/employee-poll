@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 
 import Unanswered from "./Unanswered";
 import Answered from "./Answered";
+import NotFoundPage from "./NotFoundPage";
 
 const PollTemplate = () => {
   // Fetching data from store
@@ -27,22 +28,26 @@ const PollTemplate = () => {
   const currentQuestion = questions[id];
 
   const handleTemplate = () => {
-    if (tabs.selectedTab === 1) {
-      return (
-        <Unanswered
-          author={users[currentQuestion.author]}
-          question={currentQuestion}
-          loggedUser={authedUser}
-        />
-      );
+    if (currentQuestion) {
+      if (tabs.selectedTab === 1) {
+        return (
+          <Unanswered
+            author={users[currentQuestion.author]}
+            question={currentQuestion}
+            loggedUser={authedUser}
+          />
+        );
+      } else {
+        return (
+          <Answered
+            author={users[currentQuestion.author]}
+            question={currentQuestion}
+            loggedUser={authedUser}
+          />
+        );
+      }
     } else {
-      return (
-        <Answered
-          author={users[currentQuestion.author]}
-          question={currentQuestion}
-          loggedUser={authedUser}
-        />
-      );
+      return <NotFoundPage />;
     }
   };
 
