@@ -5,7 +5,7 @@ import Card from "react-bootstrap/Card";
 import { setAuthedUser } from "../actions/authedUser";
 
 // Custom Component
-import CustomSelect from "../custom-component/custom-select/CustomSelect";
+import CustomSelect from "./CustomSelect";
 
 const userList = (state) => state.users;
 

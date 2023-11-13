@@ -36,7 +36,7 @@ export function saveNewQuestion(question) {
     const { authedUser } = getState();
     return saveQuestion({
       ...question,
-      author: authedUser.value,
+      author: authedUser.id,
     }).then((question) => dispatch(addQuestion(question)));
   };
 }

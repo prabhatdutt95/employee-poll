@@ -2,10 +2,10 @@ import { useMemo } from "react";
 import { useSelector, shallowEqual } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import Unanswered from "../../components/Unanswered";
-import Answered from "../../components/Answered";
+import Unanswered from "./Unanswered";
+import Answered from "./Answered";
 
-const CustomModal = () => {
+const PollTemplate = () => {
   // Fetching data from store
   const userData = useSelector(
     (state) => ({
@@ -49,4 +49,4 @@ const CustomModal = () => {
   return handleTemplate();
 };
 
-export default CustomModal;
+export default PollTemplate;

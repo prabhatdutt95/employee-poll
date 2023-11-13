@@ -5,17 +5,16 @@ import QuestionTab from "./QuestionTab";
 import { Routes, Route } from "react-router-dom";
 import Leaderboard from "./Leaderboard";
 import NewPoll from "./NewPoll";
-import CustomModal from "../custom-component/custom-modal/CustomModal";
+import PollTemplate from "./PollTemplate";
 
 const Home = () => {
   const loggedUser = useSelector((state) => state.authedUser);
   return (
     <>
       <NavHeader loggedUser={loggedUser} />
-
       <Routes>
         <Route path="/" exact element={<QuestionTab />} />
-        <Route path="/question/:id" exact element={<CustomModal />} />
+        <Route path="/question/:id" exact element={<PollTemplate />} />
         <Route path="/leaderboard" exact element={<Leaderboard />} />
         <Route path="/new" exact element={<NewPoll />} />
       </Routes>
