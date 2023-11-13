@@ -2,6 +2,7 @@ import { showLoading, hideLoading } from "react-redux-loading-bar";
 
 import { saveQuestionAnswer, saveQuestion } from "../utils/api";
 import { handleInitialData } from "./shared";
+import { updateUser } from "./users";
 
 export const RECEIVE_QUESTIONS = "RECEIVE_QUESTIONS";
 export const SAVE_QUESTION_ANSWER = "SAVE_QUESTION_ANSWER";
@@ -31,6 +32,7 @@ export function saveAnswerToQuestion(authedUser, qid, answer) {
     })
       .then((_) => {
         dispatch(handleInitialData());
+        dispatch(updateUser(authedUser, qid));
       })
       .then(() => dispatch(hideLoading()));
   };
@@ -44,7 +46,10 @@ export function saveNewQuestion(question) {
       ...question,
       author: authedUser.id,
     })
-      .then((question) => dispatch(addQuestion(question)))
+      .then((question) => {
+        dispatch(addQuestion(question));
+        dispatch(updateUser(authedUser.id, question.id));
+      })
       .then(() => dispatch(hideLoading()));
   };
 }

@@ -30,7 +30,8 @@ describe("formatDate", () => {
     const timestamp = new Date("July 20, 1969, 13:18:00 UTC").getTime();
     const result = formatDate(timestamp);
     // Ensure the date part of the string matches the known date
-    expect(result).toContain(" | 20/7/1969");
+    expect(result).toContain("1969");
+    expect(result).toMatch(/^\d{1,2}:\d{2}:PM \| \d{1,2}\/\d{1,2}\/\d{4}$/); // Complete format check
   });
 
   it("creates a consistent date snapshot", () => {

@@ -7,6 +7,7 @@ import Leaderboard from "./Leaderboard";
 import NewPoll from "./NewPoll";
 import PollTemplate from "./PollTemplate";
 import Loader from "./Loader";
+import NotFoundPage from "./NotFoundPage";
 
 const Home = () => {
   const loggedUser = useSelector((state) => state.authedUser);
@@ -22,6 +23,7 @@ const Home = () => {
             <Route path="/question/:id" exact element={<PollTemplate />} />
             <Route path="/leaderboard" exact element={<Leaderboard />} />
             <Route path="/new" exact element={<NewPoll />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </>
       )}
